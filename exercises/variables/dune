@@ -1,0 +1,3 @@
+(executables
+ (names variables1 variables2)
+ (libraries logs))

@@ -1,0 +1,5 @@
+(executable
+ (name ofronds)
+ (public_name ofronds)
+ (package ofronds)
+ (libraries logs))
