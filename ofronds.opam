@@ -7,11 +7,12 @@ Small exercises to get you used to reading and writing OCaml code.
 """
 maintainer: ["Gargi Sharma <gs051095@gmail.com>"]
 authors: ["Gargi Sharma <gs051095@gmail.com>"]
+license: "MIT"
 homepage: "https://github.com/gs0510/ofronds"
 doc: "https://gs0510.github.io/ofronds/"
 bug-reports: "https://github.com/gs0510/ofronds/issues"
 depends: [
-  "dune" {>= "2.7"}
+  "dune" {>= "2.8"}
   "alcotest"
   "fmt"
   "logs"
