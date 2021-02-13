@@ -1,0 +1,5 @@
+(cram
+ (deps
+  %{bin:ofronds}
+  (package ofronds)
+  (source_tree .)))
