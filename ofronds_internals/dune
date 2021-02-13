@@ -2,5 +2,16 @@
  (name ofronds)
  (public_name ofronds)
  (package ofronds)
- (libraries logs fmt cmdliner sexplib sexplib0)
- (preprocess (pps ppx_sexp_conv)))
+ (libraries
+  logs
+  fmt
+  cmdliner
+  sexplib
+  sexplib0
+  bos
+  astring
+  ;; Additional deps via (implicit_transitive_deps false)
+  result
+  rresult)
+ (preprocess
+  (pps ppx_sexp_conv)))

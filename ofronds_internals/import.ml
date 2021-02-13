@@ -1,7 +1,9 @@
 (* Standard additions to the default namespace in this project *)
 
-include Sexplib.Std
+include Astring
+include Bos
 include Sexplib
+include Sexplib.Std
 
 module Result = struct
   include Result
@@ -9,6 +11,10 @@ module Result = struct
   module Syntax = struct
     let ( let+ ) x f = Result.map f x
     let ( let* ) x f = Result.bind x f
+
+    let ( let*! ) : 'a 'b 'e. ('a, 'e) t -> ('a -> 'b) -> 'b =
+     fun x f -> f (Result.get_ok x)
+
     let ( >>| ) x f = Result.map f x
     let ( >>= ) x f = Result.bind x f
   end
