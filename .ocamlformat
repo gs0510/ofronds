@@ -1,0 +1,7 @@
+version = 0.16.0
+profile = conventional
+
+break-infix = fit-or-vertical
+break-separators = before
+dock-collection-brackets = false
+module-item-spacing = compact

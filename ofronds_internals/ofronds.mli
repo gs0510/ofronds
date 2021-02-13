@@ -1,1 +1,1 @@
-val main : unit -> string
+(* Intentionally empty *)
