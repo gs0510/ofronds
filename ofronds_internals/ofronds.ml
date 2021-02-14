@@ -11,11 +11,11 @@ let exercise_metadata =
            "No `exercises/' directory found. Are you in the top-level \
             directory of the `ofronds' project?"
      in
-     Exercise.Set.of_file (cwd / "exercises" / "info.sexp") |> function
+     Exercise.Set.of_file (cwd / "exercises" / "info.se") |> function
      | Ok ex -> ex
      | Error `File_not_found ->
          User_message.failf
-           "The `exercises/' directory doesn't contain a valid `info.sexp' \
+           "The `exercises/' directory doesn't contain a valid `info.se' \
             file.")
 
 let introductory_text =
