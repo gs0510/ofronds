@@ -10,6 +10,7 @@
   sexplib0
   bos
   astring
+  dune-build-info
   ;; Additional deps via (implicit_transitive_deps false)
   result
   rresult)

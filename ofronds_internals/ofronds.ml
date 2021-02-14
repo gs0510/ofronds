@@ -1,37 +1,22 @@
 open! Import
 
-module User_message = struct
-  let () =
-    Fmt.set_style_renderer Fmt.stdout `Ansi_tty;
-    Fmt.set_style_renderer Fmt.stderr `Ansi_tty
-
-  let failf fmt =
-    let k ppf =
-      ppf Fmt.stderr;
-      exit 1
-    in
-    Format.kdprintf k
-      ("@[%a: @[<v>" ^^ fmt ^^ "@]@.")
-      Fmt.(styled `Red string)
-      "error"
-
-  let successf fmt =
-    Format.printf
-      ("@[%a: @[<v>" ^^ fmt ^^ "@]@.")
-      Fmt.(styled `Green string)
-      "success"
-end
-
 let exercise_metadata =
   lazy
     (let cwd = Sys.getcwd () in
      let ( / ) = Filename.concat in
-     Exercise.Set.of_file (cwd / "exercises" / "metadata.sexp") |> function
+     let () =
+       try Unix.access (cwd / "exercises") [ R_OK ]
+       with Unix.Unix_error _ ->
+         User_message.failf
+           "No `exercises/' directory found. Are you in the top-level \
+            directory of the `ofronds' project?"
+     in
+     Exercise.Set.of_file (cwd / "exercises" / "info.sexp") |> function
      | Ok ex -> ex
      | Error `File_not_found ->
          User_message.failf
-           "No `exercises/' directory found. Are you in the top-level \
-            directory of the `ofronds' project?")
+           "The `exercises/' directory doesn't contain a valid `info.sexp' \
+            file.")
 
 let introductory_text =
   {|                                          _  _
@@ -41,9 +26,9 @@ let introductory_text =
   | | | | |_ | '__/ _ \| '_ \ / _` / __|    |  _/
   | |_| |  _|| | | (_) | | | | (_| \__ \   -| |
    \___/|_|  |_|  \___/|_| |_|\__,_|___/    | |-
-────────────────────────────────────────────┴─┴────────
-            Get ready to learn some OCaml!
-───────────────────────────────────────────────────────
+┌───────────────────────────────────────────┴─┴───────┐
+│           Get ready to learn some OCaml!            │
+└─────────────────────────────────────────────────────┘
 
 New here? Here's a breakdown:
 
@@ -63,7 +48,16 @@ New here? Here's a breakdown:
   ask for a hint by typing `hint' (when running in
   `watch' mode) or via `ofronds hint <exercise>'.
 
-Ready? Run `ofronds watch' to get started.|}
+Ready? Run `ofronds watch' to get started.
+
+┌───< useful commands >───────────────────────────────┐
+│                                                     │
+│ • ofronds watch   # Auto-rebuild changed exercises  │
+│ • ofronds verify  # Run all in recommended order    │
+│ • ofronds list    # See available exercises         │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+|}
 
 open Cmdliner
 
@@ -77,80 +71,9 @@ let list =
   in
   (Term.(const fn $ const ()), Term.info ~doc "list")
 
-(* TODO: get terminal width dynamically in a Windows-compatible manner. c.f. Alcotest. *)
-let terminal_width () = 80
-
-let apparent_length : string -> int =
-  let is_final_byte c =
-    let c = Char.to_int c in
-    c >= 0x40 && c <= 0x7e
-  in
-  let rec count_escape_characters s ~off ~acc =
-    match String.find ~start:off (function '\x1b' -> true | _ -> false) s with
-    | None -> acc
-    | Some escape_start -> (
-        match String.find ~start:(escape_start + 2) is_final_byte s with
-        | None -> Fmt.failwith "Invalid escape sequence in string: `%s'" s
-        | Some escape_end ->
-            count_escape_characters s ~off:(escape_end + 1)
-              ~acc:(acc + escape_end - escape_start + 1))
-  in
-  fun s -> String.length s - count_escape_characters s ~off:0 ~acc:0
-
-let with_surrounding_box ppf lines =
-  (* Peek at the lines being pretty-printed to determine the length of the box
-     we're going to need. Fortunately, this will not include ANSII colour
-     escapes. *)
-  let lines_with_lengths =
-    ListLabels.map lines ~f:(fun l -> (l, apparent_length l))
-  in
-  let width =
-    ListLabels.fold_left lines_with_lengths ~init:(terminal_width ())
-      ~f:(fun acc (_, apparent_length) -> max acc (apparent_length + 4))
-  in
-  let bars = List.init (width - 2) (fun _ -> "─") |> String.concat in
-  let pp_faint x = Fmt.(styled `Faint string) ppf x in
-
-  pp_faint ("┌" ^ bars ^ "┐");
-  Fmt.cut ppf ();
-
-  ListLabels.iter lines_with_lengths ~f:(fun (line, apparent_length) ->
-      pp_faint "│ ";
-      Fmt.string ppf line;
-      for _ = apparent_length + 4 to width - 1 do
-        Fmt.char ppf ' '
-      done;
-      pp_faint " │";
-      Fmt.cut ppf ());
-
-  pp_faint ("└" ^ bars ^ "┘")
-
 let verify =
   let doc = "Verifies all exercises in the recommended order." in
-  let fn () =
-    Lazy.force exercise_metadata
-    |> Exercise.Set.to_list
-    |> ListLabels.fold_left ~init:(Ok 0) ~f:(fun acc ex ->
-           match acc with
-           | Error _ as e -> e
-           | Ok exercises_passed -> (
-               match Exercise.compile ex with
-               | Error (`Output lines) -> Error (ex, lines)
-               | Ok () ->
-                   Fmt.pr "%a@,"
-                     Fmt.(styled `Green string)
-                     (Fmt.str "✓ Successfully ran `%a'" Exercise.pp_path ex);
-
-                   Ok (succ exercises_passed)))
-    |> function
-    | Ok n -> User_message.successf "ran %d exercises" n
-    | Error (ex, lines) ->
-        Fmt.pr "@[<v>%a@,@,%a@]@."
-          Fmt.(styled `Red string)
-          (Fmt.str "! Failed to compile `%a'. Here's the output:"
-             Exercise.pp_path ex)
-          with_surrounding_box lines
-  in
+  let fn () = Lazy.force exercise_metadata |> Exercise.Set.run_sequentially in
   (Term.(const fn $ const ()), Term.info ~doc "verify")
 
 let describe =
@@ -169,6 +92,10 @@ let watch =
   let fn () = failwith "TODO: implement" in
   (Term.(const fn $ const ()), Term.info ~doc "watch")
 
+let version =
+  let open Build_info.V1 in
+  match version () with Some v -> Version.to_string v | None -> "dev"
+
 let () =
   let default =
     let default_info =
@@ -176,7 +103,7 @@ let () =
         "OFronds is a collection of small exercises to get you used to writing \
          and reading OCaml code"
       in
-      Term.info ~doc "ofronds"
+      Term.info ~version ~doc "ofronds"
     in
     Term.
       ( app (const @@ fun () -> print_endline introductory_text) (const ())

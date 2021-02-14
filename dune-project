@@ -17,4 +17,15 @@
  (description "\
 Small exercises to get you used to reading and writing OCaml code.
 ")
- (depends alcotest fmt logs))
+ (depends
+  astring
+  bos
+  cmdliner
+  dune-build-info
+  fmt
+  logs
+  ppx_sexp_conv
+  result
+  rresult
+  sexplib
+  sexplib0))

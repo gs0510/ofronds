@@ -13,9 +13,17 @@ doc: "https://gs0510.github.io/ofronds/"
 bug-reports: "https://github.com/gs0510/ofronds/issues"
 depends: [
   "dune" {>= "2.8"}
-  "alcotest"
+  "astring"
+  "bos"
+  "cmdliner"
+  "dune-build-info"
   "fmt"
   "logs"
+  "ppx_sexp_conv"
+  "result"
+  "rresult"
+  "sexplib"
+  "sexplib0"
   "odoc" {with-doc}
 ]
 build: [

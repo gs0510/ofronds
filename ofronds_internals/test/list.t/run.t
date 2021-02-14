@@ -1,5 +1,7 @@
 The `list` subcommand displays all available exercises:
 
+  $ mkdir exercises
+  $ echo "(exercise (name foo) (path foo.ml))" > exercises/info.sexp
   $ ofronds list
   foo
 
