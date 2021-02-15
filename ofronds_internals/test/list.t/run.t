@@ -1,9 +1,13 @@
 The `list` subcommand displays all available exercises:
 
   $ mkdir exercises
-  $ echo "(exercise (name foo) (path foo.ml))" > exercises/info.se
+  $ cat > exercises/info.se << EOF
+  > (exercise (name foo) (path foo.ml))
+  > (exercise (name bar) (path bar.ml))
+  > EOF
   $ ofronds list
   foo
+  bar
 
 Running `list' from a directory with no exercise data displays an appropriate
 error:
