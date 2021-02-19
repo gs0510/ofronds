@@ -12,6 +12,7 @@ homepage: "https://github.com/gs0510/ofronds"
 doc: "https://gs0510.github.io/ofronds/"
 bug-reports: "https://github.com/gs0510/ofronds/issues"
 depends: [
+  "ocaml" {>= "4.08.0"}
   "dune" {>= "2.8"}
   "astring"
   "bos"
@@ -29,7 +30,7 @@ depends: [
 build: [
   ["dune" "subst"] {dev}
   [
-    "ocaml" {>= "4.08.0"}
+    "ocaml"
     "dune"
     "build"
     "-p"
