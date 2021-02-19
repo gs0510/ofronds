@@ -1,4 +1,4 @@
-# ofronds
+# ofronds :camel:
 
 Small exercises to get you used to reading and writing OCaml code.
 
