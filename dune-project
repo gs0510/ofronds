@@ -1,11 +1,15 @@
-(lang dune 2.7.1)
+(lang dune 2.8)
 (name ofronds)
-(implicit_transitive_deps false)
 
+(implicit_transitive_deps false)
+(cram enable)
 (generate_opam_files true)
+
 (source (github gs0510/ofronds))
+(documentation https://gs0510.github.io/ofronds/)
 (maintainers "Gargi Sharma <gs051095@gmail.com>")
 (authors "Gargi Sharma <gs051095@gmail.com>")
+(license MIT)
 
 (package
  (name ofronds)
@@ -13,5 +17,15 @@
  (description "\
 Small exercises to get you used to reading and writing OCaml code.
 ")
- (documentation https://gs0510.github.io/ofronds/)
- (depends alcotest fmt logs))
+ (depends
+  astring
+  bos
+  cmdliner
+  dune-build-info
+  fmt
+  logs
+  ppx_sexp_conv
+  result
+  rresult
+  sexplib
+  sexplib0))
