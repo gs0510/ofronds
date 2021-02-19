@@ -15,8 +15,7 @@ let exercise_metadata =
      | Ok ex -> ex
      | Error `File_not_found ->
          User_message.failf
-           "The `exercises/' directory doesn't contain a valid `info.se' \
-            file.")
+           "The `exercises/' directory doesn't contain a valid `info.se' file.")
 
 let introductory_text =
   {|                                          _  _
