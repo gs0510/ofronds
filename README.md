@@ -2,6 +2,8 @@
 
 Small exercises to get you used to reading and writing OCaml code.
 
+[![OCaml-CI Build Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fci.ocamllabs.io%2Fbadge%2Focurrent%2Focaml-ci%2Fmaster&logo=ocaml)](https://ci.ocamllabs.io/github/gs0510/ofronds)
+
 ## Installation
 
 The idea:
