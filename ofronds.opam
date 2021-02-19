@@ -29,6 +29,7 @@ depends: [
 build: [
   ["dune" "subst"] {dev}
   [
+    "ocaml" {>= "4.08.0"}
     "dune"
     "build"
     "-p"
