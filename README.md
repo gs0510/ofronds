@@ -1,4 +1,4 @@
-# ofronds :camel:
+# ofronds :dromedary_camel: :palm_tree:
 
 Small exercises to get you used to reading and writing OCaml code.
 
