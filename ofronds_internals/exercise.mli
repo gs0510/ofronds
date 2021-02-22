@@ -1,4 +1,4 @@
-type t [@@deriving sexp]
+type t [@@deriving sexp_of]
 
 val of_file :
   string -> name:string -> (t, [ `File_not_found | `Name_absent ]) result
