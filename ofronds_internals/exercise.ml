@@ -5,11 +5,16 @@ let invalid_metadata fmt =
   let exception Invalid_metadata of string in
   Fmt.kstr (fun s -> raise (Invalid_metadata s)) fmt
 
-type t = { name : string; path : string (* Relative to the metadata file *) }
+type t =
+  { name : string
+  ; path : string (* Relative to the metadata file *)
+  ; hint : string option [@sexp.option]
+  }
 [@@deriving sexp]
 
 let name t = t.name
 let pp_path = Fmt.using (fun { path; _ } -> path) Fmt.string
+let hint t = t.hint
 
 let of_stanza : Sexp.t -> t = function
   | List (Atom "exercise" :: fields) -> t_of_sexp (List fields)
@@ -52,6 +57,7 @@ module Set = struct
   type nonrec t = { ordered : t list; by_name : (string, t) Hashtbl.t }
 
   let to_list t = t.ordered
+  let to_hashtable t = t.by_name
 
   let of_file path =
     let+ ordered =
