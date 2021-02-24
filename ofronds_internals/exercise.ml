@@ -83,9 +83,3 @@ module Set = struct
           (Fmt.str "! Failed to compile `%a'. Here's the output:" pp_path ex)
           User_message.with_surrounding_box lines
 end
-
-let of_file path ~name =
-  let* { by_name; _ } = Set.of_file path in
-  match Hashtbl.find_opt by_name name with
-  | Some x -> Ok x
-  | None -> Error `Name_absent

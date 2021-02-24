@@ -7,11 +7,6 @@ val name : t -> string
 val pp_path : t Fmt.t
 (** Pretty-prints the file path associated with the exercise. *)
 
-val of_file :
-  string -> name:string -> (t, [ `File_not_found | `Name_absent ]) result
-(** [of_file path ~name] loads the exercise named [name] from the given metadata
-    file [path]. *)
-
 val compile : t -> (unit, [ `Output of string list ]) result
 (** [compile ex] attempts to build exercise [ex] with Dune. If the build fails,
     the compiler output is returned. *)
