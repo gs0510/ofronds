@@ -18,6 +18,7 @@
 Small exercises to get you used to reading and writing OCaml code.
 ")
  (depends
+  (ocaml (>= 4.08.0))
   astring
   bos
   cmdliner
