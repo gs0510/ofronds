@@ -32,5 +32,9 @@ module Set : sig
   val run_sequentially : t -> unit
   (** Run each exercise in the given set in intended order, stopping at the
       first failure with an appropriate error message. *)
+
+  val get_hint :
+    t -> name:string -> [ `Hint of string | `No_hint | `Erroneous_name ]
+  (** Get the hint for the exercise name. *)
 end
 with type exercise := t

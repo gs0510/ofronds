@@ -88,4 +88,11 @@ module Set = struct
           Fmt.(styled `Red string)
           (Fmt.str "! Failed to compile `%a'. Here's the output:" pp_path ex)
           User_message.with_surrounding_box lines
+
+  let get_hint t ~name =
+    let hastable = to_hashtable t in
+    match Hashtbl.find_opt hastable name with
+    | Some exercise -> (
+        match hint exercise with Some hint -> `Hint hint | None -> `No_hint)
+    | None -> `Erroneous_name
 end

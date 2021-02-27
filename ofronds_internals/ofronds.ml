@@ -103,22 +103,17 @@ let hint =
   in
   let exercise_name =
     let doc = "Name of the exercise" in
-    (* Arg.required @@ Arg.pos 0 (Arg.some ) None
-       @@ Arg.info ~doc *)
     Cmdliner.Arg.(value & pos 0 string "hint" & info [] ~doc)
   in
   let fn exercise_name =
     let metadata = Lazy.force exercise_metadata in
-    let hastable = Exercise.Set.to_hashtable metadata in
-    match Hashtbl.find_opt hastable exercise_name with
-    | Some exercise -> (
-        match Exercise.hint exercise with
-        | Some hint -> Fmt.pr "%s\n" hint
-        | None ->
-            Fmt.pr "%s\n"
-              "There's no hint for this exercise, if you think it'd be useful \
-               please open an issue.")
-    | None ->
+    match Exercise.Set.get_hint metadata ~name:exercise_name with
+    | `Hint hint -> Fmt.pr "%s\n" hint
+    | `No_hint ->
+        Fmt.pr "%s\n"
+          "There's no hint for this exercise. If you think it'd be useful, \
+           please open an issue: https://github.com/gs0510/ofronds/issues."
+    | `Erroneous_name ->
         User_message.failf
           "This exercise doesn't exist, perphaps you entered the name wrong?"
   in
