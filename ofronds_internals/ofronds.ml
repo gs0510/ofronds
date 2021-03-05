@@ -49,13 +49,14 @@ New here? Here's a breakdown:
 
 Ready? Run `ofronds watch' to get started.
 
-┌───< useful commands >───────────────────────────────┐
-│                                                     │
-│ • ofronds watch   # Auto-rebuild changed exercises  │
-│ • ofronds verify  # Run all in recommended order    │
-│ • ofronds list    # See available exercises         │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+┌───< useful commands >─────────────────────────────────────┐
+│                                                           │
+│ • ofronds watch   # Auto-rebuild changed exercises        │
+│ • ofronds verify  # Run all in recommended order          │
+│ • ofronds list    # See available exercises               │
+│ • ofronds hint  <name>  # Display hint for the exercises  │
+│                                                           │
+└───────────────────────────────────────────────────────────┘
 |}
 
 open Cmdliner
@@ -95,6 +96,29 @@ let version =
   let open Build_info.V1 in
   match version () with Some v -> Version.to_string v | None -> "dev"
 
+let hint =
+  let doc =
+    "Get a hint if you're stuck on a problem by writing `ofronds hint \
+     <name_of_exercise>"
+  in
+  let exercise_name =
+    let doc = "Name of the exercise" in
+    Cmdliner.Arg.(value & pos 0 string "hint" & info [] ~doc)
+  in
+  let fn exercise_name =
+    let metadata = Lazy.force exercise_metadata in
+    match Exercise.Set.get_hint metadata ~name:exercise_name with
+    | `Hint hint -> Fmt.pr "%s\n" hint
+    | `No_hint ->
+        Fmt.pr "%s\n"
+          "There's no hint for this exercise. If you think it'd be useful, \
+           please open an issue: https://github.com/gs0510/ofronds/issues."
+    | `Erroneous_name ->
+        User_message.failf
+          "This exercise doesn't exist, perphaps you entered the name wrong?"
+  in
+  (Term.(const fn $ exercise_name), Term.info ~doc "hint")
+
 let () =
   let default =
     let default_info =
@@ -108,4 +132,4 @@ let () =
       ( app (const @@ fun () -> print_endline introductory_text) (const ())
       , default_info )
   in
-  Term.(exit @@ eval_choice default [ list; verify; describe; watch ])
+  Term.(exit @@ eval_choice default [ list; verify; describe; watch; hint ])
