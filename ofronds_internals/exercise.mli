@@ -4,9 +4,6 @@ type t [@@deriving sexp_of]
 val name : t -> string
 (** The name of an exercise. *)
 
-val hint : t -> string option
-(** The hint of an exercise *)
-
 val pp_path : t Fmt.t
 (** Pretty-prints the file path associated with the exercise. *)
 
