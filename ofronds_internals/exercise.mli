@@ -26,9 +26,6 @@ module Set : sig
   val to_list : t -> exercise list
   (** View the exercise set as a list in the intended completion order. *)
 
-  val to_hashtable : t -> (string, exercise) Hashtbl.t
-  (** View the exercise set as a hashtable with exercise name as key. *)
-
   val run_sequentially : t -> unit
   (** Run each exercise in the given set in intended order, stopping at the
       first failure with an appropriate error message. *)
