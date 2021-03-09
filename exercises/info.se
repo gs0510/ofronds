@@ -2,8 +2,37 @@
 
 (exercise
  (name let_bindings)
- (path "1.variables/a_let_bindings.ml"))
+ (path "1.variables/a_let_bindings/a_let_bindings.ml")
+ (hint "In OCaml, variable bindings are done using the `let` keyword: `let <variable_name> = <value>`.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
 
 (exercise
- (name more_let_bindings)
- (path "1.variables/b_more_let_bindings.ml"))
+ (name type_declarations)
+ (path "1.variables/b_type_declarations/b_type_declarations.ml")
+ (hint "There are two possibilities to solve this.\n \
+  1. Declare the type as a string.\n \
+  2. Make `y` a float, for example, 1.0. \n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name type_errors)
+ (path "1.variables/c_type_errors/c_type_errors.ml")
+ (hint "`+` is an operator that expects two integers. You cannot add an int and a float. \
+  As a side-note: for float additions you need `+.`.\n\
+  Also, `^` concatenates two strings. Strings are denoted by \"\", whereas '' denotes characters.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name type_conversions)
+ (path "1.variables/d_type_conversions/d_type_conversions.ml")
+ (hint "For basic types, to convert from a type `t` to a type `d`, you can usually use the function `<d>_of_<t>`.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name shadowing)
+ (path "1.variables/e_shadowing/e_shadowing.ml")
+ (hint "Variables are immutable by default, which means that you can't change their value. \
+  You can redefine them though. This is done by using the 'let' keyword with the same variable name \
+  and is called _shadowing_. \
+  Since you are redefining the variable from scratch, you can use a different type.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
