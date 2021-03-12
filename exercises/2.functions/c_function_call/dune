@@ -1,0 +1,2 @@
+(executable
+ (name c_function_call)) 

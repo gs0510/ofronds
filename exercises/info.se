@@ -36,3 +36,59 @@
   and is called _shadowing_. \
   Since you are redefining the variable from scratch, you can use a different type.\n\n\
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name function_definition)
+ (path "2.functions/a_function_definition/a_function_definition.ml")
+ (hint "Functions are values in OCaml. So the syntax is similar to the one in the last section; you can see it here in the `add` function. Also, note that compiler errors don't always point to the right line with the error, you might have to look several lines above for the error.\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name let_in_bindings)
+ (path "2.functions/b_let_in_bindings/b_let_in_bindings.ml")
+ (hint "Functions are values in OCaml. So the syntax is similar to the one in the last section; you can see it here in the `add` function. Also, note that compiler errors don't always point to the right line with the error, you might have to look several lines above for the error.\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+
+(exercise
+ (name function_call)
+ (path "2.functions/c_function_call/c_function_call.ml")
+ (hint "The syntax of function calls is the same as the one of function definitions: no brackets, no commas (see definition of value `a`). You will see in the next section why the syntax has to be like that.\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name currying)
+ (path "2.functions/d_currying/d_currying.ml")
+ (hint "OCaml is a functional language. One of its functional features is that all functions are curried, which means that you can apply them partially: if you have a function with `n` paramters, you can apply it to the first paramter and get the function that takes the next `n-1` parameters as arguments.\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name named_arguments)
+ (path "2.functions/e_nameed_arguments/e_named_arguments.ml")
+ (hint "\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name optional_arguments)
+ (path "2.functions/f_optional_arguments/f_optional_arguments.ml")
+ (hint "\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name operators)
+ (path "2.functions/g_operators/g_operators.ml")
+ (hint "You have already come across different binary operators such as `+`, `+.`, `-`, `^`, etc. In OCaml we can define and redefine binary operators. The syntax is: `let (<operator>) ma b = ...` defines a new binary operator `<operator>`, which can be used as `a <operator> b`.\n\
+ The percentage computation can be done as follows: `a /. 100 *. p`\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name functions_as_parameters)
+ (path "2.functions/h_functions_as_parameters/h_functions_as_parameters.ml")
+ (hint "\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name precedence)
+ (path "2.functions/i_precedence/i_precedence.ml")
+ (hint "\n\n\
+ For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))

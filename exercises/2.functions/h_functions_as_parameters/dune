@@ -1,0 +1,2 @@
+(executable
+ (name h_functions_as_parameters))

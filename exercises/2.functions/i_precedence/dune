@@ -1,0 +1,2 @@
+(executable
+ (name i_precedence))
