@@ -29,8 +29,24 @@
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
 
 (exercise
+ (name let_in_bindings)
+ (path "1.variables/e_let_in_bindings/e_let_in_bindings.ml")
+ (hint "The syntax of let bindings inside an expression (for example, inside a variable deifinition) is `let ... in`; \
+  see line 3 of this exercise.\n\
+  Also, note that compiler errors, particularly syntax errors, don't always point to the right line with the error, \
+  you might have to look several lines above for the error.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name local_scoping)
+ (path "1.variables/f_local_scoping/f_local_scoping.ml")
+ (hint "Bindings defined via the `let ... in` syntax are only defined locally inside the expression they're in. \
+  That's called local scoping. In this exercise, `pi` needs to be defined globally, just the way `radius` is.\n\n\
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
  (name shadowing)
- (path "1.variables/e_shadowing/e_shadowing.ml")
+ (path "1.variables/g_shadowing/g_shadowing.ml")
  (hint "Variables are immutable by default, which means that you can't change their value. \
   You can redefine them though. This is done by using the 'let' keyword with the same variable name \
   and is called _shadowing_. \
