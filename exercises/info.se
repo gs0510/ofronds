@@ -52,3 +52,55 @@
   and is called _shadowing_. \
   Since you are redefining the variable from scratch, you can use a different type.\n\n\
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+
+(exercise
+ (name function_definitions)
+ (path "2.functions/a_function_definitions/a_function_definitions.ml")
+ (hint "Functions are values in OCaml, so the syntax is similar to the one in the last section. You can see a valid \
+  function definition here in the `add` function.\n\
+  Also, note that compiler errors, particularly syntax errors, don't always point to the right line with the error, \
+  you might have to look several lines above for the error.\n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name scope_and_visibility)
+ (path "2.functions/b_scope_and_visibility/b_scope_and_visibility.ml")
+ (hint "You can use varibales and functions defined globally inside a function definition. But whatever you want \
+  to use has to be defined before in order to be visible.\n\
+  Notice also that a function definition consists in an expression, so you need the `let ... in` binding syntax to \
+  define a variable inside a function definition.\n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name function_calls)
+ (path "2.functions/c_function_calls/c_function_calls.ml")
+ (hint "The syntax of function calls is the same as the one of function definitions: no brackets, no commas \
+  (see definition of value `a`). You will see in the next exercise why the syntax has to be like that.\n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name currying)
+ (path "2.functions/d_currying/d_currying.ml")
+ (hint "OCaml is a functional language. One of its functional features is that all functions are curried, \
+  which means that you can apply them partially: if you have a function with `n` paramters, you can apply it to \
+  the first paramter and get the function that takes the next `n-1` parameters as arguments.\n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name labelled_arguments)
+ (path "2.functions/e_labelled_arguments/e_labelled_arguments.ml")
+ (hint "In OCaml, arguments can be unlabelled (as seen so far) or labelled (as seen in this exercise). \
+  Labelled arguments are marked with a `~` and can be passed in any order. They are particularly useful in functions \
+  with same-typed arguments: if those arguments are labelled, you can't mess up the order in the function call. \n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
+
+(exercise
+ (name optional_arguments)
+ (path "2.functions/f_optional_arguments/f_optional_arguments.ml")
+ (hint "Functions can have optional arguments, which are marked with a `?` in the defintion. You can call a function \
+  without the optional argument. If you want to call the function with the optional argument, you use a `~`. \
+  Concretely: `~start:6`.\n\
+  Note that in this exercise you're also getting introduced to a new syntax of handing a labelled argument to a \
+  function call: `~length:4` is a way of handing in the labelled argument `length` as `4`. \n\n\
+  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
