@@ -29,8 +29,22 @@
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
 
 (exercise
+ (name let_in_bindings)
+ (path "1.variables/e_let_in_bindings/e_let_in_bindings.ml")
+ (hint "The syntax of let bindings inside an expression (for example, a variable deifinition), is `let ... in`; as seen here in line 3.
+  Also, note that compiler errors, particularly syntax errors, don't always point to the right line with the error, you might have to look several lines above for the error.\n\n
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
+ (name local_scoping)
+ (path "1.variables/f_local_scoping/f_local_scoping.ml")
+ (hint "Bindings defined via the `let ... in` syntax are only defined locally inside the expression they're in. That's called local scoping.
+  In this exercise, `pi` needs to be defined globally just the way `radius` is.
+  For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
+
+(exercise
  (name shadowing)
- (path "1.variables/e_shadowing/e_shadowing.ml")
+ (path "1.variables/g_shadowing/g_shadowing.ml")
  (hint "Variables are immutable by default, which means that you can't change their value. \
   You can redefine them though. This is done by using the 'let' keyword with the same variable name \
   and is called _shadowing_. \
@@ -40,13 +54,13 @@
 (exercise
  (name function_definition)
  (path "2.functions/a_function_definition/a_function_definition.ml")
- (hint "Functions are values in OCaml. So the syntax is similar to the one in the last section; you can see it here in the `add` function. Also, note that compiler errors don't always point to the right line with the error, you might have to look several lines above for the error.\n\n\
+ (hint "Functions are values in OCaml. So the syntax is similar to the one in the last section; you can see it here in the `add` function. Also, note that compiler errors, particularly syntax errors, don't always point to the right line with the error, you might have to look several lines above for the error.\n\n\
  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
 
 (exercise
  (name let_in_bindings)
  (path "2.functions/b_let_in_bindings/b_let_in_bindings.ml")
- (hint "Functions are values in OCaml. So the syntax is similar to the one in the last section; you can see it here in the `add` function. Also, note that compiler errors don't always point to the right line with the error, you might have to look several lines above for the error.\n\n\
+ (hint "n\n\
  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
 
 
@@ -63,15 +77,18 @@
  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
 
 (exercise
- (name named_arguments)
- (path "2.functions/e_nameed_arguments/e_named_arguments.ml")
- (hint "\n\n\
+(name labelled_arguments)
+ (path "2.functions/e_labelled_arguments/e_labelled_arguments.ml")
+ (hint "In OCaml, arguments can be unlabelled (as seen so far) or labelled (as seen in this exercise). Labelled arguments are marked with a `~`
+  and can be passed in any order. They are particularly useful in functions with same-typed arguments: if the arguments aren't labelled,
+  you might mess up the order in the function call. \n\n\
  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
 
 (exercise
  (name optional_arguments)
  (path "2.functions/f_optional_arguments/f_optional_arguments.ml")
- (hint "\n\n\
+ (hint "Functions can have optional arguments, which are marked with a `?`. You can call a function without the optional argument.
+  If you want to call the function with the optional argument, you use a `~`, such as `~start:3`.\n\n\
  For more information on functions, see https://dev.realworldocaml.org/variables-and-functions.html#functions"))
 
 (exercise
