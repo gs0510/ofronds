@@ -1,0 +1,2 @@
+(executable
+ (name f_local_scoping))
