@@ -71,10 +71,19 @@ let list =
   in
   (Term.(const fn $ const ()), Term.info ~doc "list")
 
+let start_at =
+  let doc =
+    "Start at exercise section. Expects a string that is the name of the \
+     exercise."
+  in
+  Arg.(value & opt (some string) None & info [ "start_at" ] ~doc)
+
 let verify =
   let doc = "Verifies all exercises in the recommended order." in
-  let fn () = Lazy.force exercise_metadata |> Exercise.Set.run_sequentially in
-  (Term.(const fn $ const ()), Term.info ~doc "verify")
+  let fn start_at =
+    Lazy.force exercise_metadata |> Exercise.Set.run_sequentially ~start_at
+  in
+  (Term.(const fn $ start_at), Term.info ~doc "verify")
 
 let describe =
   let doc = "Print an s-expression description of the exercise metadata" in
@@ -107,7 +116,7 @@ let hint =
   in
   let fn exercise_name =
     let metadata = Lazy.force exercise_metadata in
-    match Exercise.Set.get_hint metadata ~name:exercise_name with
+    match Exercise.Set.get_hint metadata ~user_input:exercise_name with
     | `Hint hint -> Fmt.pr "%s\n" hint
     | `No_hint ->
         Fmt.pr "%s\n"

@@ -2,12 +2,16 @@
 
 (exercise
  (name let_bindings)
+ (extended_name a_let_bindings)
+ (shorthand 1.a)
  (path "1.variables/a_let_bindings/a_let_bindings.ml")
  (hint "In OCaml, variable bindings are done using the `let` keyword: `let <variable_name> = <value>`.\n\n\
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
 
 (exercise
  (name type_declarations)
+ (extended_name b_type_declarations)
+ (shorthand 1.b)
  (path "1.variables/b_type_declarations/b_type_declarations.ml")
  (hint "There are two possibilities to solve this.\n \
   1. Declare the type as a string.\n \
@@ -16,6 +20,8 @@
 
 (exercise
  (name type_errors)
+ (extended_name c_type_errors)
+ (shorthand 1.c)
  (path "1.variables/c_type_errors/c_type_errors.ml")
  (hint "`+` is an operator that expects two integers. You cannot add an int and a float. \
   As a side-note: for float additions you need `+.`.\n\
@@ -24,12 +30,16 @@
 
 (exercise
  (name type_conversions)
+ (extended_name d_type_conversions)
+ (shorthand 1.d)
  (path "1.variables/d_type_conversions/d_type_conversions.ml")
  (hint "For basic types, to convert from a type `t` to a type `d`, you can usually use the function `<d>_of_<t>`.\n\n\
   For more information on variables, see https://dev.realworldocaml.org/variables-and-functions.html#variables"))
 
 (exercise
  (name shadowing)
+ (extended_name e_shadowing)
+ (shorthand 1.e)
  (path "1.variables/e_shadowing/e_shadowing.ml")
  (hint "Variables are immutable by default, which means that you can't change their value. \
   You can redefine them though. This is done by using the 'let' keyword with the same variable name \

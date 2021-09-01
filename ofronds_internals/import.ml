@@ -24,7 +24,9 @@ module Hashtbl = struct
   include Hashtbl
 
   let of_list :
-        'a 'b.    index_by:('a -> 'b) -> 'a list
+        'a 'b.
+           index_by:('a -> 'b)
+        -> 'a list
         -> (('b, 'a) Hashtbl.t, [ `Dup of 'b ]) result =
    fun ~index_by l ->
     let h = Hashtbl.create 0 in

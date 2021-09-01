@@ -8,6 +8,7 @@
   cmdliner
   sexplib
   sexplib0
+  str
   bos
   astring
   dune-build-info
