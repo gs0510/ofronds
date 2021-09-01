@@ -19,6 +19,10 @@ type user_input =
   | Extended_name of string
   | Shorthand of string
 
+let user_input_error =
+  "This exercise doesn't exist, perphaps you entered the name wrong? The name \
+   can be of the form: 1.a or a_let_bindings or let_bindings."
+
 let name t = t.name
 let pp_path = Fmt.using (fun { path; _ } -> path) Fmt.string
 let hint t = t.hint
@@ -110,8 +114,26 @@ module Set = struct
         invalid_metadata "Duplicate shorthand: %s" by_shorthand
     | _, _, _, Error (`Dup path) -> invalid_metadata "Duplicate path: %s" path
 
-  let run_sequentially t ~start_at:_ =
-    ListLabels.fold_left t.ordered ~init:(Ok 0) ~f:(fun acc ex ->
+  let rec chop_list start_at = function
+    | { name; extended_name; shorthand; _ } :: tail as current -> (
+        match start_at with
+        | Name sname ->
+            if String.equal name sname then current else chop_list start_at tail
+        | Extended_name sextended_name ->
+            if String.equal extended_name sextended_name then current
+            else chop_list start_at tail
+        | Shorthand sshorthand ->
+            if String.equal shorthand sshorthand then current
+            else chop_list start_at tail)
+    | [] -> User_message.failf "%s\n" user_input_error
+
+  let run_sequentially t ~start_at =
+    let ordered =
+      match start_at with
+      | None -> t.ordered
+      | Some start_at -> chop_list (user_input_heuristics start_at) t.ordered
+    in
+    ListLabels.fold_left ordered ~init:(Ok 0) ~f:(fun acc ex ->
         let* exercises_passed = acc in
         match compile ex with
         | Error (`Output lines) -> Error (ex, lines)
@@ -124,15 +146,25 @@ module Set = struct
     |> function
     | Ok n -> User_message.successf "ran %d exercises" n
     | Error (ex, lines) ->
-        Fmt.pr "@[<v>%a@,@,%a@]@."
+        Fmt.pr "@[<v>%a@,@,%a@]@.%s"
           Fmt.(styled `Red string)
           (Fmt.str "! Failed to compile `%a'. Here's the output:" pp_path ex)
           User_message.with_surrounding_box lines
+          "To get to know what this exercise is about, run ofronds hint.\n"
 
   let get_hint t ~user_input =
-    let hastable = to_hashtable t in
-    match Hashtbl.find_opt hastable (user_input_heuristics user_input) with
-    | Some exercise -> (
-        match hint exercise with Some hint -> `Hint hint | None -> `No_hint)
-    | None -> `Erroneous_name
+    let output =
+      let hastable = to_hashtable t in
+      match Hashtbl.find_opt hastable (user_input_heuristics user_input) with
+      | Some exercise -> (
+          match hint exercise with Some hint -> `Hint hint | None -> `No_hint)
+      | None -> `Erroneous_name
+    in
+    match output with
+    | `Hint hint -> Fmt.pr "%s\n" hint
+    | `No_hint ->
+        Fmt.pr "%s\n"
+          "There's no hint for this exercise. If you think it'd be useful, \
+           please open an issue: https://github.com/gs0510/ofronds/issues."
+    | `Erroneous_name -> User_message.failf "%s\n" user_input_error
 end

@@ -27,8 +27,7 @@ module Set : sig
   (** Run each exercise in the given set in intended order, stopping at the
       first failure with an appropriate error message. *)
 
-  val get_hint :
-    t -> user_input:string -> [ `Hint of string | `No_hint | `Erroneous_name ]
+  val get_hint : t -> user_input:string -> unit
   (** Get the hint for the exercise name. *)
 end
 with type exercise := t
