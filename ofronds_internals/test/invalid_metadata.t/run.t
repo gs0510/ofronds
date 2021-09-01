@@ -10,7 +10,7 @@ The metadata must not contain two tests with the same name:
   $ ofronds verify
   ofronds: internal error, uncaught exception:
            Invalid_metadata("Duplicate name: duplicated")
-           
+          
   [125]
 
 The metadata must not contain two tests with the same path:
