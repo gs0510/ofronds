@@ -150,7 +150,7 @@ module Set = struct
           Fmt.(styled `Red string)
           (Fmt.str "! Failed to compile `%a'. Here's the output:" pp_path ex)
           User_message.with_surrounding_box lines
-          "To get to know what this exercise is about, run ofronds hint.\n"
+          "To get to know what this exercise is about, run ofronds hint <exercise_name>.\n"
 
   let get_hint t ~user_input =
     let output =
