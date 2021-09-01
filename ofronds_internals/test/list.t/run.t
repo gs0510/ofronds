@@ -2,8 +2,8 @@ The `list` subcommand displays all available exercises:
 
   $ mkdir exercises
   $ cat > exercises/info.se << EOF
-  > (exercise (name foo) (path foo.ml))
-  > (exercise (name bar) (path bar.ml))
+  > (exercise (name foo) (extended_name foo_nar) (shorthand 1.d) (path foo.ml))
+  > (exercise (name bar) (extended_name foo_bar) (shorthand 1.f) (path bar.ml))
   > EOF
   $ ofronds list
   foo

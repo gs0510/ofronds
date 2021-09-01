@@ -65,7 +65,7 @@ let compile ex =
   | `Signaled n -> Fmt.failwith "`dune exec' subcommand received signal %d" n
 
 let user_input_heuristics input =
-  let shorthand_regex = Str.regexp "[1-9]+\.[a-z]" in
+  let shorthand_regex = Str.regexp "[1-9]+\\.[a-z]" in
   if Str.string_match shorthand_regex input 0 then Shorthand input
   else
     let extended_name_regex = Str.regexp "[a-z]_[A-Za-z]+" in
@@ -125,7 +125,7 @@ module Set = struct
         | Shorthand sshorthand ->
             if String.equal shorthand sshorthand then current
             else chop_list start_at tail)
-    | [] -> User_message.failf "%s\n" user_input_error
+    | [] -> User_message.failf "%s" user_input_error
 
   let run_sequentially t ~start_at =
     let ordered =
@@ -150,7 +150,8 @@ module Set = struct
           Fmt.(styled `Red string)
           (Fmt.str "! Failed to compile `%a'. Here's the output:" pp_path ex)
           User_message.with_surrounding_box lines
-          "To get to know what this exercise is about, run ofronds hint <exercise_name>.\n"
+          "To get to know what this exercise is about, run ofronds hint \
+           <exercise_name>.\n"
 
   let get_hint t ~user_input =
     let output =
@@ -166,5 +167,5 @@ module Set = struct
         Fmt.pr "%s\n"
           "There's no hint for this exercise. If you think it'd be useful, \
            please open an issue: https://github.com/gs0510/ofronds/issues."
-    | `Erroneous_name -> User_message.failf "%s\n" user_input_error
+    | `Erroneous_name -> User_message.failf "%s" user_input_error
 end
