@@ -10,7 +10,7 @@ The metadata must not contain two tests with the same name:
   $ ofronds verify
   ofronds: internal error, uncaught exception:
            Invalid_metadata("Duplicate name: duplicated")
-          
+           
   [125]
 
 The metadata must not contain two tests with the same path:
@@ -23,7 +23,7 @@ The metadata must not contain two tests with the same path:
   $ ofronds verify
   ofronds: internal error, uncaught exception:
            Invalid_metadata("Duplicate path: duplicated.ml")
-
+           
   [125]
 
 The metadata must not contain two tests with the same shorthand:
@@ -36,7 +36,7 @@ The metadata must not contain two tests with the same shorthand:
   $ ofronds verify
   ofronds: internal error, uncaught exception:
            Invalid_metadata("Duplicate shorthand: 1.f")
-
+           
   [125]
 
 The metadata must not contain two tests with the same extended_name:
@@ -49,5 +49,5 @@ The metadata must not contain two tests with the same extended_name:
   $ ofronds verify
   ofronds: internal error, uncaught exception:
            Invalid_metadata("Duplicate extended name: foo_bar")
-
+           
   [125]
